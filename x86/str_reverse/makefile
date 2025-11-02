@@ -1,12 +1,15 @@
+OBJ = reverse
+BUILD_DIR = build
 
 run: build
-	./reverse
+	./$(BUILD_DIR)/$(OBJ)
 	@echo "Return code: $$?" 
 
 build:
-	nasm -f elf64 reverse.s -o reverse.o
-	ld reverse.o -o reverse
+	mkdir -p $(BUILD_DIR)
+	nasm -f elf64 $(OBJ).s -o ./$(BUILD_DIR)/$(OBJ).o
+	ld ./$(BUILD_DIR)/$(OBJ).o -o ./$(BUILD_DIR)/$(OBJ)
 	
 .PHONY: clean
 clean:
-	rm reverse reverse.o
+	rm -r ./$(BUILD_DIR)

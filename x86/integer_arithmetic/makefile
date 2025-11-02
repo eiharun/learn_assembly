@@ -1,12 +1,15 @@
+OBJ = arithmetic
+BUILD_DIR = build
 
 run: build
-	./arithmetic
+	./$(BUILD_DIR)/$(OBJ)
 	@echo "Return code: $$?" 
 
 build:
-	nasm -f elf64 arithmetic.s -o arithmetic.o
-	ld arithmetic.o -o arithmetic
+	mkdir -p $(BUILD_DIR)
+	nasm -f elf64 $(OBJ).s -o ./$(BUILD_DIR)/$(OBJ).o
+	ld ./$(BUILD_DIR)/$(OBJ).o -o ./$(BUILD_DIR)/$(OBJ)
 	
 .PHONY: clean
 clean:
-	rm arithmetic arithmetic.o
+	rm -r ./$(BUILD_DIR)

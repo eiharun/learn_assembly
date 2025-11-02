@@ -1,13 +1,15 @@
-EXE = factorial
+OBJ = factorial
+BUILD_DIR = build
 
 run: build
-	./$(EXE)
+	./$(BUILD_DIR)/$(OBJ)
 	@echo "Return code: $$?" 
 
 build:
-	nasm -f elf64 $(EXE).s -o $(EXE).o
-	ld $(EXE).o -o $(EXE)
+	mkdir -p $(BUILD_DIR)
+	nasm -f elf64 $(OBJ).s -o ./$(BUILD_DIR)/$(OBJ).o
+	ld ./$(BUILD_DIR)/$(OBJ).o -o ./$(BUILD_DIR)/$(OBJ)
 	
 .PHONY: clean
 clean:
-	rm $(EXE) $(EXE).o
+	rm -r ./$(BUILD_DIR)

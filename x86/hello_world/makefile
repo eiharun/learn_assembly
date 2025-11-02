@@ -1,12 +1,15 @@
+OBJ = hello_world
+BUILD_DIR = build
 
 run: build
-	./hello_world
+	./$(BUILD_DIR)/$(OBJ)
 	@echo "Return code: $$?" 
 
 build:
-	nasm -f elf64 hello_world.s -o hello_world.o
-	ld hello_world.o -o hello_world
+	mkdir -p $(BUILD_DIR)
+	nasm -f elf64 $(OBJ).s -o ./$(BUILD_DIR)/$(OBJ).o
+	ld ./$(BUILD_DIR)/$(OBJ).o -o ./$(BUILD_DIR)/$(OBJ)
 	
 .PHONY: clean
 clean:
-	rm hello_world hello_world.o
+	rm -r ./$(BUILD_DIR)
